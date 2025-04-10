@@ -5,45 +5,50 @@ import axios from "axios";
 const AdminDashboard = () => {
   const [tab, setTab] = useState("plants");
   const [plants, setPlants] = useState([]);
-  const [pots, setPots] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [pots, setPots] = useState([]);
   const [newItem, setNewItem] = useState({
     Image: "",
     Title: "",
     Description: "",
-    Price: "",
-    Stocks: null,
+    Price: 0,
+    Stocks: 0,
     Category: "",
   });
 
-  console.log(newItem);
+  // console.log(newItem);
 
-  useEffect(() => {
-    // Simulated backend data
-    setPlants([
-      {
-        id: 1,
-        name: "Snake Plant",
-        price: "250",
-        description: "Air-purifying indoor plant",
-        stock: "15",
-        imagePreview: "https://via.placeholder.com/150",
-      },
-    ]);
-    setPots([
-      {
-        id: 1,
-        name: "Clay Pot",
-        price: "120",
-        description: "Traditional eco-friendly pot",
-        stock: "40",
-        imagePreview: "https://via.placeholder.com/150",
-      },
-    ]);
-  }, []);
+  // useEffect(() => {
+  //   // Simulated backend data
+  //   setPlants([
+  //     {
+  //       id: 1,
+  //       name: "Snake Plant",
+  //       price: "250",
+  //       description: "Air-purifying indoor plant",
+  //       stock: "15",
+  //       imagePreview: "https://via.placeholder.com/150",
+  //     },
+  //   ]);
+  //   setPots([
+  //     {
+  //       id: 1,
+  //       name: "Clay Pot",
+  //       price: "120",
+  //       description: "Traditional eco-friendly pot",
+  //       stock: "40",
+  //       imagePreview: "https://via.placeholder.com/150",
+  //     },
+  //   ]);
+  // }, []);
 
   const handleAdd = async () => {
-    if (!newItem.name || !newItem.price || !newItem.stock) return;
+    if (!newItem.Title || newItem.Price < 1 || !newItem.Stocks < 0) {
+      alert("Please fill all fields correctly");
+      return;
+    }
+
+    await axios.post("http://localhost:3000/plantsapi/addplant");
 
     const newId = Date.now();
     const newItemWithId = { id: newId, ...newItem };
@@ -51,16 +56,14 @@ const AdminDashboard = () => {
     if (tab === "plants") setPlants([...plants, newItemWithId]);
     else setPots([...pots, newItemWithId]);
 
-    await axios.post("http://localhost:3000/plantsapi/addplant", newItem);
-
     // Reset
     setNewItem({
-      name: "",
-      price: "",
-      description: "",
-      stock: "",
-      image: null,
-      imagePreview: "",
+      Image: "",
+      Title: "",
+      Description: "",
+      Price: 0,
+      Stocks: 0,
+      Category: "",
     });
     setShowModal(false);
   };
@@ -152,25 +155,30 @@ const AdminDashboard = () => {
             <input
               type="number"
               placeholder="Price"
+              min={1}
               className="w-full p-2 border rounded"
-              value={newItem.Price}
-              onChange={(e) =>
-                setNewItem((prev) => ({ ...prev, Price: e.target.value }))
-              }
+              value={newItem.Price === 0 ? "" : newItem.Price}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                value >= 1
+                  ? setNewItem((prev) => ({ ...prev, Price: value }))
+                  : "Price can not be less than 1";
+              }}
             />
 
             {/* Image URL input instead of file upload */}
             <input
               type="number"
               placeholder="Stocks"
+              min={0}
               className="w-full p-2 border rounded"
-              value={newItem.Stocks}
-              onChange={(e) =>
-                setNewItem((prev) => ({
-                  ...prev,
-                  Stocks: e.target.value,
-                }))
-              }
+              value={newItem.Stocks === 0 ? "" : newItem.Stocks}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                value >= 0
+                  ? setNewItem((prev) => ({ ...prev, Stocks: value }))
+                  : "Stocks can not be less than 0";
+              }}
             />
 
             {/* {newItem.imagePreview && (
