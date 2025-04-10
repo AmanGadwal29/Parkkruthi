@@ -8,6 +8,8 @@ const AdminSignForm = () => {
     AdminName: "",
     Password: "",
   });
+  const [error, setError] = React.useState(null);
+  const [isRegistered, setIsRegistered] = React.useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,7 +19,7 @@ const AdminSignForm = () => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/adminsapi/adminlogin", adminData);
+      const res = await axios.post("http://localhost:3000/adminsapi/adminlogin", adminData);
       localStorage.setItem(
         "admin",
         JSON.stringify({
@@ -28,19 +30,24 @@ const AdminSignForm = () => {
       );
 
       alert("Admin Logged In");
+      setIsRegistered(true);
       navigate("/admindashboard");
     } catch (err) {
-      console.error("Login failed", err);
+      setError(err.message);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div
+      className={`flex justify-center items-center min-h-screen ${
+        isRegistered ? "" : ""
+      }`}
+    >
       <form
-        className="bg-white p-4 max-w-sm w-full rounded-lg shadow-md"
+        className="bg-green-50 p-4 max-w-sm w-full rounded-lg shadow-md md:max-w-md lg:max-w-lg"
         onSubmit={SubmitHandler}
       >
-        <p className="text-xl font-semibold text-center text-black mb-4">
+        <p className="text-xl font-semibold text-center text-green-800 mb-4">
           Admin Login
         </p>
 
@@ -66,9 +73,11 @@ const AdminSignForm = () => {
           />
         </div>
 
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
         <button
           type="submit"
-          className="block w-full py-3 px-5 bg-indigo-600 text-white text-sm font-medium rounded-lg uppercase"
+          className="block w-full py-3 px-5 bg-green-800 text-white text-sm font-medium rounded-lg uppercase"
         >
           Sign in
         </button>

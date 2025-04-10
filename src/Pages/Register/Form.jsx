@@ -29,16 +29,16 @@ const Form = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen ">
       <form
-        className="flex flex-col gap-2 max-w-sm bg-white p-5 rounded-2xl relative shadow-md w-full"
+        className="flex flex-col gap-2 max-w-sm md:max-w-md lg:max-w-lg bg-green-50 p-5 rounded-2xl relative shadow-md w-full"
         onSubmit={handleSubmit}
       >
         {/* Title with dots and animation */}
-        <p className="text-[28px] text-[royalblue] font-semibold tracking-tight relative flex items-center pl-8">
+        <p className="text-[28px] text-[#1f7d4e] font-semibold tracking-tight relative flex items-center pl-8">
           Register
-          <span className="absolute left-0 w-4 h-4 bg-[royalblue] rounded-full" />
-          <span className="absolute left-0 w-4 h-4 bg-[royalblue] rounded-full animate-ping" />
+          <span className="absolute left-0 w-4 h-4 bg-[#41e16c] rounded-full" />
+          <span className="absolute left-0 w-4 h-4 bg-[#176b26] rounded-full animate-ping" />
         </p>
 
         {/* Subtext */}
@@ -48,7 +48,7 @@ const Form = () => {
 
         {/* Name */}
         <div className="flex gap-2">
-          <label className="relative w-full">
+          <label className="relative">
             <input
               required
               type="text"
@@ -56,9 +56,11 @@ const Form = () => {
               value={userData.Name}
               onChange={HandleInput}
               placeholder=" "
-              className="w-full p-3 pb-5 border border-gray-400 rounded-xl peer outline-none"
+              className="w-72 p-3 border border-gray-400 rounded-xl peer outline-none"
             />
-            <span className="absolute left-3 top-[14px] text-gray-500 text-sm peer-placeholder-shown:top-[14px] peer-placeholder-shown:text-sm peer-focus:top-7 peer-focus:text-xs peer-focus:font-semibold peer-valid:text-green-600 transition-all duration-300">
+            <span
+              className="absolute left-3 top-[10px] text-gray-500 text-sm peer-placeholder-shown:block peer-placeholder-shown:top-[10px] peer-placeholder-shown:text-sm peer-focus:hidden peer-focus:top-7 peer-focus:text-xs peer-focus:font-semibold peer-valid:text-green-600 transition-all duration-300"
+            >
               Name
             </span>
           </label>
@@ -79,9 +81,11 @@ const Form = () => {
               value={userData[label]}
               onChange={HandleInput}
               placeholder=" "
-              className="w-full p-3 pb-5 border border-gray-400 rounded-xl peer outline-none"
+              className="w-72 p-3 border border-gray-400 rounded-xl peer outline-none"
             />
-            <span className="absolute left-3 top-[14px] text-gray-500 text-sm peer-placeholder-shown:top-[14px] peer-placeholder-shown:text-sm peer-focus:top-7 peer-focus:text-xs peer-focus:font-semibold peer-valid:text-green-600 transition-all duration-300">
+            <span
+              className="absolute left-3 top-[10px] text-gray-500 text-sm peer-placeholder-shown:block peer-placeholder-shown:top-[10px] peer-placeholder-shown:text-sm peer-focus:hidden peer-focus:top-7 peer-focus:text-xs peer-focus:font-semibold peer-valid:text-green-600 transition-all duration-300"
+            >
               {display || label}
             </span>
           </label>
@@ -90,7 +94,7 @@ const Form = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="border-none outline-none bg-[royalblue] hover:bg-blue-700 text-white p-3 rounded-xl text-[16px] transition-all"
+          className="border-none outline-none bg-[#1ca14d] hover:bg-green-800 text-white p-3 rounded-xl text-[16px] transition-all"
         >
           Submit
         </button>
@@ -98,8 +102,8 @@ const Form = () => {
         {/* Sign in link */}
         <p className="text-sm text-center text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="text-[royalblue] hover:underline">
-            Signin
+          <Link to="/login" className="text-[#24724f] hover:underline">
+            SignIn
           </Link>
         </p>
       </form>
