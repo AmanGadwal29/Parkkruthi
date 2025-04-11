@@ -18,6 +18,7 @@ import FloweringPlants from "./Plants/FloweringPlants.jsx";
 import UserProtectedRoute from "./Utils/UserProtectedRoute.jsx";
 import AdminProtectedRoute from "./Utils/AdminPortectedRoute.jsx";
 import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
+import FloweringPots from "./Component/Ports/FloweringPots.jsx";
 import "preline/preline.js";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:category" element={<FloweringPlants />} />
+        
         <Route path="/collection/:sale" element={<Sale />} />
         <Route path="/product/:details" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />

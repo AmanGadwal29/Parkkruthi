@@ -1,9 +1,9 @@
 import React from "react";
-import Button from "./Button";
+import Button from "../Other/Carousel2/Button";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const PlantCard = ({ id, name, price, image }) => {
+const PortCards = ({ id, name, price, image }) => {
   return (
     <div className="cursor-pointer w-full max-w-[200px] sm:max-w-[300px] md:max-w-[340px] lg:max-w-[360px] mx-auto flex flex-col items-center justify-between shadow-lg overflow-hidden rounded-xl bg-white">
       {/* Image Section */}
@@ -48,4 +48,4 @@ const PlantCard = ({ id, name, price, image }) => {
   );
 };
 
-export default PlantCard;
+export default PortCards
